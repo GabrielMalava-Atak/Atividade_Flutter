@@ -1,0 +1,22 @@
+{
+  "services": [
+    {
+      "id": "1",
+      "name": "Aulas de Programação",
+      "description": "Aulas sobre Flutter e Dart para iniciantes",
+      "availabilityDate": "2023-12-31T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Aulas de Inglês",
+      "description": "Curso intensivo de inglês focado em conversação",
+      "availabilityDate": "2023-11-30T00:00:00Z"
+    },
+    {
+      "id": "1731340716171",
+      "name": "awdawijkydfgawod",
+      "description": "awdwapihdwaó8hdaw",
+      "availabilityDate": "2024-11-11T00:00:00.000"
+    }
+  ]
+}

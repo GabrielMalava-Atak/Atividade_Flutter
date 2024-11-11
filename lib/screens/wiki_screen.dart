@@ -34,11 +34,9 @@ class _WikiScreenState extends State<WikiScreen> {
       MaterialPageRoute(builder: (context) => RegisterServiceScreen()),
     );
 
-    // Se um novo serviço foi retornado, adiciona-o à lista de serviços
+    // Se um novo serviço foi retornado, recarrega a lista completa de serviços
     if (newService != null && newService is ServiceModel) {
-      setState(() {
-        _services.add(newService); // Adiciona o serviço recém-adicionado à lista
-      });
+      _loadServices();
     }
   }
 
