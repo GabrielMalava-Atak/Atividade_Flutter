@@ -22,5 +22,6 @@ class ApiService {
 
   void addService(ServiceModel service) {
     _services.add(service);
+    print('Serviço adicionado: ${service.name}'); // Verifica se o serviço está sendo adicionado
   }
 }

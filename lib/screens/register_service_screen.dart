@@ -15,39 +15,49 @@ class _RegisterServiceScreenState extends State<RegisterServiceScreen> {
   final ApiService _apiService = ApiService();
   List<ServiceModel> _services = []; // Lista interna de serviços
 
-  Future<void> _pickDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
-  }
+Future<void> _pickDate(BuildContext context) async {
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2100),
+  );
 
-void _registerService() {
-  if (_formKey.currentState!.validate() && _selectedDate != null) {
-    final newService = ServiceModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: _serviceNameController.text,
-      description: _serviceDescriptionController.text,
-      availabilityDate: _selectedDate!,
-    );
-
-    _apiService.addService(newService);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Serviço registrado com sucesso!')),
-    );
-
-    Navigator.pop(context, newService); // Retorna o serviço recém-adicionado
+  if (picked != null && picked != _selectedDate) {
+    setState(() {
+      _selectedDate = picked;
+    });
+  } else {
+    // Você pode mostrar uma mensagem ao usuário se necessário
+    print("Nenhuma data foi selecionada ou houve um erro.");
   }
 }
 
+  void _registerService() {
+    if (_formKey.currentState!.validate() && _selectedDate != null) {
+      final newService = ServiceModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: _serviceNameController.text,
+        description: _serviceDescriptionController.text,
+        availabilityDate: _selectedDate!,
+      );
+
+      _apiService.addService(newService);  // Opcional: Salva o novo serviço na API ou banco de dados
+
+      setState(() {
+        _services.add(newService); // Adiciona o serviço à lista local para exibição
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Serviço registrado com sucesso!')),
+      );
+
+      // Limpa os campos após adicionar o serviço
+      _serviceNameController.clear();
+      _serviceDescriptionController.clear();
+      _selectedDate = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

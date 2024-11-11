@@ -18,6 +18,7 @@ class _WikiScreenState extends State<WikiScreen> {
     _loadServices(); // Carrega a lista inicial de serviços
   }
 
+  // Carrega os serviços da API ou do armazenamento local
   void _loadServices() {
     _apiService.fetchServices().then((services) {
       setState(() {
@@ -26,12 +27,14 @@ class _WikiScreenState extends State<WikiScreen> {
     });
   }
 
+  // Navega para a tela de registro de serviço e adiciona o novo serviço à lista ao retornar
   Future<void> _navigateToRegisterService() async {
     final newService = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RegisterServiceScreen()),
     );
 
+    // Se um novo serviço foi retornado, adiciona-o à lista de serviços
     if (newService != null && newService is ServiceModel) {
       setState(() {
         _services.add(newService); // Adiciona o serviço recém-adicionado à lista
